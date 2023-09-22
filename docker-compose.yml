@@ -25,7 +25,11 @@ services:
       bash -c '
       head -n 10 /sql/restore.sql;
       ls -l /var/opt/mssql/backup/AdventureWorksLT2022.bak;
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d master -i /sql/restore.sql -o /sql/restore.txt;
-      head -n 10 /sql/restore.txt;
+      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d master -i /sql/restore.sql -o /sql/restore.log;
+      head -n 10 /sql/restore.log;
+      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d master -i /sql/security.sql -o /sql/security.log;
+      head -n 10 /sql/security.log;
+      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d AdventureWorksLT2022 -i /sql/tSQLt.class.sql -o /sql/tSQLt.class.log;
+      head -n 10 /sql/tSQLt.class.log;
       echo "All done!";
       '

@@ -33,3 +33,5 @@ CASE
 GROUP BY CUS.CustomerID,CUS.CompanyName, ADR.CountryRegion, CUS.Phone
 
 GO
+
+
