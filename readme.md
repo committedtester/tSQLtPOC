@@ -1,7 +1,7 @@
 GOAL
 - To be able to launch a local docker version of SQL server
 - To be able to introduce some basic Stored Database Procedures
-- TO be able to test those Stored Database Procedures
+- TO be able to test those Stored Database Procedures with tSQLt
 
 # Suggested Pre-requisite
 Install SQL Server Management Studio or alternate SQL client
@@ -23,7 +23,7 @@ GO
 EXECUTE [dbo].[NorthAmericaBikeCustomers] 
 GO
 ```
-## 1.2 Confirm tSQL installation
+## 1.2 Confirm tSQLt installation
 ```sql
 USE [AdventureWorksLT2022]
 GO
@@ -32,7 +32,7 @@ EXEC tSQLt.RunAll
 GO
 ```
 
-# 2. Tests that validate the stored procedure 
+# 2. tSQLt Tests that validate the stored procedures 
 Coming next
 
 # Troubleshooting
