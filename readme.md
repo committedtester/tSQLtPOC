@@ -7,11 +7,11 @@ GOAL
 Install SQL Server Management Studio or alternate SQL client
 
 # 1. Setup Production and Test Code Examples
-Clone the .env.example file to create a .env file. Edit the file to include your SQL Server sa password.
-Run "docker-compose up" 
-Connect to the SQL Server database using the configuration in the docker-compose.yml file 
+- Clone the .env.example file to create a .env file. Edit the file to include your SQL Server sa password.
+- Run "docker-compose up" 
+- Connect to the SQL Server database using the configuration in the docker-compose.yml file 
 
-NOTE: There are three files, one to restore the database, one to allow for security and one to install tSQLt.
+NOTE: There are three files, one to restore the database, one to allow for security and one to install tSQLt. \
 The tSQLt.class.sql was downloaded from https://tsqlt.org/
 
 ## 1.1 Stored Procedure
