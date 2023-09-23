@@ -21,9 +21,9 @@ CASE
     END AS BikeStore, 
 CASE
         WHEN COUNT(CASE WHEN ADR.CountryRegion LIKE '%United States%' THEN 1 END) > 0
-             AND COUNT(CASE WHEN ADR.CountryRegion LIKE '%Canada%' THEN 1 END) > 0
-        THEN 1
-        ELSE 0
+             OR COUNT(CASE WHEN ADR.CountryRegion LIKE '%Canada%' THEN 1 END) > 0
+        THEN 'true'
+        ELSE 'false'
     END AS NorthAmericaAddress	
   FROM [AdventureWorksLT2022].[SalesLT].[Customer] CUS
   left join [AdventureWorksLT2022].[SalesLT].CustomerAddress CA 

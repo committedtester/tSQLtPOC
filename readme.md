@@ -31,9 +31,17 @@ GO
 EXEC tSQLt.RunAll
 GO
 ```
+You will see a test being executed against the stored procedure
+
 
 # 2. tSQLt Tests that validate the stored procedures 
-Coming next
+These exist within the sql/tests directory and are within the database as stored procedures.
+The NorthAmericaBikeCustomers is a report, so I have used the AssertEqualsTable assertion. 
+
+
+# Next Steps
+Simplify the Test SQL Import so that it can be extended easily with more tests
+
 
 # Troubleshooting
 - For each SQL file there is a corresponding text file with the console output.
