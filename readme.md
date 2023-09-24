@@ -40,9 +40,11 @@ The NorthAmericaBikeCustomers is a report, so I have used the AssertEqualsTable 
 
 
 # Next Steps
-Simplify the Test SQL Import so that it can be extended easily with more tests
+Include more test examples
 
 
 # Troubleshooting
 - For each SQL file there is a corresponding text file with the console output.
 - If the installation fails, it may be easier to perform a docker-compose rm, then troubleshoot each SQL execution individually.
+- Each test is a stored procedure. After the schema, the test must have a prefix of 'test' to be picked up by the test runner
+- Each test needs to be invoked in a transaction if you wish to use the fakeTable procedure. YOu cannot run the test stored procedure in isolation if you want those tables to be reverted back. You have to run them via the RunAll function

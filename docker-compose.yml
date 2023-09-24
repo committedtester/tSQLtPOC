@@ -3,6 +3,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     volumes:
     - ./backup:/var/opt/mssql/backup
+    - ./sql:/sql
     environment:
       - SA_PASSWORD=${SA_PASSWORD}
       - ACCEPT_EULA=Y
@@ -17,16 +18,13 @@ services:
   sqlserver.restorebackup:
     image: mcr.microsoft.com/mssql/server:2022-latest
     volumes:
-    - ./sql/setup:/sql/setup
-    - ./sql/tests:/sql/tests
+    - ./sql:/sql
     depends_on:
       sqlserver:
         condition: service_healthy
-    command: >
-      bash -c '
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d master -i /sql/setup/restore.sql -o /sql/setup/restore.log;
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d master -i /sql/setup/security.sql -o /sql/setup/security.log;
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d AdventureWorksLT2022 -i /sql/setup/tSQLt.class.sql -o /sql/setup/tSQLt.class.log;
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d AdventureWorksLT2022 -i /sql/tests/NorthAmericBikeCustomers.HappyPath.sql -o /sql/tests/NorthAmericBikeCustomers.HappyPath.log;
-      echo "All done!";
-      ';
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+    command: ["sh", "/sql/scripts/orchestrator.sh"]
+    
+
+

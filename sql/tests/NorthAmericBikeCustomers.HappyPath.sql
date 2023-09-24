@@ -4,7 +4,7 @@ GO
 EXEC tSQLt.NewTestClass 'testNorthAmericaBikeCustomers';
 GO
 
-CREATE PROCEDURE testNorthAmericaBikeCustomers.[NorthAmericBikeCustomers - Returns a Bike Store With a North America Address]
+CREATE PROCEDURE testNorthAmericaBikeCustomers.[test NorthAmericBikeCustomers - Returns a Bike Store With a North America Address]
 AS
 BEGIN
 	IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
