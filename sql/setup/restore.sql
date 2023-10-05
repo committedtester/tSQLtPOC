@@ -34,4 +34,28 @@ GROUP BY CUS.CustomerID,CUS.CompanyName, ADR.CountryRegion, CUS.Phone
 
 GO
 
+USE [AdventureWorksLT2022]
+GO
+
+CREATE PROCEDURE [dbo].[DiscontinueBikes]
+AS
+
+  DECLARE @currDate DATETIME;
+  SET @currDate = convert(datetime,0);
+
+  UPDATE [AdventureWorksLT2022].[SalesLT].[Product] 
+  SET DiscontinuedDate=@currDate
+  FROM [AdventureWorksLT2022].[SalesLT].[Product] as P
+  LEFT JOIN [AdventureWorksLT2022].[SalesLT].ProductModel as PM
+  ON P.ProductModelID = PM.ProductModelID
+  LEFT JOIN [AdventureWorksLT2022].[SalesLT].ProductModelProductDescription as PMD
+  ON PM.ProductModelID = PMD.ProductModelID
+  LEFT JOIN [AdventureWorksLT2022].[SalesLT].ProductDescription as PD
+  ON PD.ProductDescriptionID = PMD.ProductDescriptionID
+  WHERE PD.Description like ('%bike%') 
+  AND P.DiscontinuedDate is null
+
+GO
+
+
 

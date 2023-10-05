@@ -31,7 +31,7 @@ GO
 EXEC tSQLt.RunAll
 GO
 ```
-You will see a test being executed against the stored procedure
+You will see tests being executed
 
 
 # 2. tSQLt Tests that validate the stored procedures 
@@ -39,9 +39,39 @@ These exist within the sql/tests directory and are within the database as stored
 The NorthAmericaBikeCustomers is a report, so I have used the AssertEqualsTable assertion. 
 
 
-# Next Steps
-Include more test examples
+# 3. tSQLt limitation - https://github.com/tSQLt-org/tSQLt/issues/17
+Within the database there is a Stored Procedure called 'Discontinue Bikes'.
+This will update any Product that has a description that contains a bike. 
+To see these records, run this SQL
 
+```sql
+SELECT P.*,PD.*
+  FROM [AdventureWorksLT2022].[SalesLT].[Product] as P
+  LEFT JOIN [AdventureWorksLT2022].[SalesLT].ProductModel as PM
+  ON P.ProductModelID = PM.ProductModelID
+  LEFT JOIN [AdventureWorksLT2022].[SalesLT].ProductModelProductDescription as PMD
+  ON PM.ProductModelID = PMD.ProductModelID
+  LEFT JOIN [AdventureWorksLT2022].[SalesLT].ProductDescription as PD
+  ON PD.ProductDescriptionID = PMD.ProductDescriptionID
+  WHERE PD.Description like ('%bike%')
+    AND P.DiscontinuedDate is null
+```
+
+The difficulty is that there are dependencies on the SalesLT.Product table which will prevent the renaming of the original tables.
+
+You will need to run
+```sql
+DROP TRIGGER [SalesLT].[iduSalesOrderDetail]
+DROP VIEW [SalesLT].[vProductAndDescription 
+```
+And then rerun
+```sql
+USE [AdventureWorksLT2022]
+GO
+
+EXEC tSQLt.RunAll
+GO
+```
 
 # Troubleshooting
 - For each SQL file there is a corresponding text file with the console output.
